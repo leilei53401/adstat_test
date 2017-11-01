@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/task 
+	http://www.springframework.org/schema/task/spring-task-4.1.xsd
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.1.xsd
+	http://www.springframework.org/schema/util 
+	http://www.springframework.org/schema/util/spring-util-4.1.xsd
+	http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.1.xsd">
+	
+	<bean id="appContextAware" class="com.voole.ad.utils.AppContextAware" />
+	
+	<import resource="classpath:spring-memcache.xml" />
+	<!-- <import resource="classpath:job_splitFile.xml"/>
+	<import resource="classpath:job_filterFile.xml"/>  
+	<import resource="classpath:job_cleanupYestordayFile.xml"/>
+	<import resource="classpath:job_processFile.xml"/>
+	<import resource="classpath:job_uploadFile.xml"/>  --> 
+   
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:db.properties</value>
+				<value>classpath:memcache.properties</value>
+				<value>classpath:applicationConfig.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 配置spring数据源 -->
+	<import resource="classpath:spring-db.xml"/>
+    
+    <!-- 配置ad_guide数据源 -->
+	<bean id="adGuide" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close"  scope="prototype">
+	    <property name="driverClassName" value="${driverClassName}"/>
+	    <property name="url" value="${adguide_url}"/>
+	    <property name="username" value="${adguide_username}"/>
+	    <property name="password" value="${adguide_password}"/>
+	    <!--initialSize: 初始化连接-->  
+		<property name="initialSize" value="10"/>  
+		<!--minIdle: 最小空闲连接-->  
+		<property name="minIdle" value="10"/>  
+		<!--maxActive: 最大连接数量-->  
+		<property name="maxActive" value="20"/>  
+		<!--maxWait: 当没有可用连接时，连接池等待连接释放的最大时间,单位：ms-->  
+		<property name="maxWait" value="60000"/>
+		<!--默认从连接池取连接时检测其可用性，放回连接池时不做监测-->
+		<property name="validationQuery" value="SELECT 1" />
+		<property name="testWhileIdle"><value>true</value></property>
+		<!-- 申请时判定 -->
+     	<property name="testOnBorrow"><value>false</value></property>
+		<!-- 返回时判定 -->
+     	<property name="testOnReturn"><value>false</value></property>
+        <property name="filters" value="stat" />  
+    </bean>
+    <!-- 配置ad_guide数据源结束 -->
+    
+	<bean id="hiveDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close" >
+		<property name="driverClassName">
+			<value>org.apache.hive.jdbc.HiveDriver</value>
+		</property>
+		<property name="url">
+			<value>${hive.linkurl}</value>
+		</property>
+		<property name="username">
+			<value>${hive.user}</value>
+		</property>
+		<property name="password">
+			<value>${hive.password}</value>
+		</property>
+		<property name="maxActive" value="80" />
+		<property name="minIdle" value="20" />
+		<property name="maxIdle" value="80" />
+		<property name="validationQuery" value="select 1"/>
+		<property name="testOnBorrow" value="true"/>
+		<property name="testOnReturn" value="true"/>
+		<property name="testWhileIdle" value="true"/>
+		<property name="defaultAutoCommit" value="false"></property>
+	</bean>
+	
+	<bean id="hiveJt" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="hiveDataSource" />
+	</bean>
+	
+ 	<bean id="dynamicDataSource" class="com.voole.ad.utils.datasource.DynamicDataSource">  
+		<property name="targetDataSources">  
+			<map>
+				 <entry key="adguide" value-ref="adGuide"/>
+			</map>  
+		</property>  
+		<property name="defaultTargetDataSource" ref="adGuide" />  
+	</bean>  
+	
+	<!-- 配置SQLSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" lazy-init="true">
+	   <property name="configLocation" value="sqlMapConfig.xml"/>
+	   <property name="mapperLocations"  
+              value="classpath:com/voole/ad/model/sqlxml/*.xml" /> 
+	   <property name="dataSource" ref="dynamicDataSource" />
+	</bean>
+	
+ 	<!--EhCache配置-->
+	<bean id="cacheManagerFactory"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
+		p:configLocation="classpath:ehcache.xml" /> 
+
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager"
+		p:cacheManager-ref="cacheManagerFactory" />
+    
+    <cache:annotation-driven cache-manager="cacheManager" />
+	
+	<context:component-scan base-package="com.voole.ad" />
+	<aop:aspectj-autoproxy proxy-target-class="true"/> 
+     
+	<!-- 加载applicationConfig.properties文件，获取属性文件的内容-->
+	<bean id="propertyConfigurer" class="com.voole.ad.utils.GlobalProperties">
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="locations">
+			<list>
+				<value>classpath:applicationConfig.properties</value>
+				<value>classpath:adstat.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<task:scheduled-tasks>
+		<!-- <task:scheduled ref="createHivePartitionService" method="createHivePartition" cron="0 0 14 * * ?"/>
+		<task:scheduled ref="dataCollectorService" method="createCollectorData" cron="0 0 7 * * ?"/>
+		<task:scheduled ref="dataCollectorService" method="monitorAdstat" cron="0 0/1 * * * ?"/> -->
+		<task:scheduled ref="dataAnalyzeService" method="createAnalyzeData" cron="0 0 8 11 * ?"/>
+		
+	</task:scheduled-tasks>
+
+</beans>

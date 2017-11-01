@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/task 
+	http://www.springframework.org/schema/task/spring-task-4.1.xsd
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.1.xsd
+	http://www.springframework.org/schema/util 
+	http://www.springframework.org/schema/util/spring-util-4.1.xsd
+	http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.1.xsd">
+	<bean id="job_splitFileSh1" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+		<property name="targetObject">
+			<ref bean="splitFileService"/>
+		</property>  
+		<property name="targetMethod" value="splitFileSh1" />  
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="job_splitFileSh2" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+		<property name="targetObject">
+			<ref bean="splitFileService"/>
+		</property>  
+		<property name="targetMethod" value="splitFileSh2" />  
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="job_splitFileSh3" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+		<property name="targetObject">
+			<ref bean="splitFileService"/>
+		</property>  
+		<property name="targetMethod" value="splitFileSh3" />  
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="job_splitFileSh4" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+		<property name="targetObject">
+			<ref bean="splitFileService"/>
+		</property>  
+		<property name="targetMethod" value="splitFileSh4" />  
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="job_splitFileSh5" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+		<property name="targetObject">
+			<ref bean="splitFileService"/>
+		</property>  
+		<property name="targetMethod" value="splitFileSh5" />  
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="job_splitFileSh6" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+		<property name="targetObject">
+			<ref bean="splitFileService"/>
+		</property>  
+		<property name="targetMethod" value="splitFileSh6" />  
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="job_splitFileSh7" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+		<property name="targetObject">
+			<ref bean="splitFileService"/>
+		</property>  
+		<property name="targetMethod" value="splitFileSh7" />  
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="job_splitFileSh8" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+		<property name="targetObject">
+			<ref bean="splitFileService"/>
+		</property>  
+		<property name="targetMethod" value="splitFileSh8" />
+		<property name="concurrent" value="false" />
+	</bean>
+
+	<bean id="trigger_splitFileSh1"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="job_splitFileSh1"/>
+		</property>
+		<property name="cronExpression">
+			<value>0 0/2 * * * ?</value>
+		</property>
+	</bean>
+	<bean id="trigger_splitFileSh2"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="job_splitFileSh2"/>
+		</property>
+		<property name="cronExpression">
+			<value>0 0/2 * * * ?</value>
+		</property>
+	</bean>
+	<bean id="trigger_splitFileSh3"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="job_splitFileSh3"/>
+		</property>
+		<property name="cronExpression">
+			<value>0 0/2 * * * ?</value>
+		</property>
+	</bean>
+	<bean id="trigger_splitFileSh4"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="job_splitFileSh4"/>
+		</property>
+		<property name="cronExpression">
+			<value>0 0/2 * * * ?</value>
+		</property>
+	</bean>
+	<bean id="trigger_splitFileSh5"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="job_splitFileSh5"/>
+		</property>
+		<property name="cronExpression">
+			<value>0 0/2 * * * ?</value>
+		</property>
+	</bean>
+	<bean id="trigger_splitFileSh6"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="job_splitFileSh6"/>
+		</property>
+		<property name="cronExpression">
+			<value>0 0/2 * * * ?</value>
+		</property>
+	</bean>
+	<bean id="trigger_splitFileSh7"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="job_splitFileSh7"/>
+		</property>
+		<property name="cronExpression">
+			<value>0 0/2 * * * ?</value>
+		</property>
+	</bean>
+	<bean id="trigger_splitFileSh8"
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="job_splitFileSh8"/>
+		</property>
+		<property name="cronExpression">
+			<value>0 0/2 * * * ?</value>
+		</property>
+	</bean>
+
+	<bean id="scheduler_splitFile" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="trigger_splitFileSh1"/>
+				<ref bean="trigger_splitFileSh2"/>
+				<ref bean="trigger_splitFileSh3"/>
+				<ref bean="trigger_splitFileSh4"/>
+				<ref bean="trigger_splitFileSh5"/>
+				<ref bean="trigger_splitFileSh6"/>
+				<ref bean="trigger_splitFileSh7"/>
+				<ref bean="trigger_splitFileSh8"/>
+			</list>
+		</property>
+	</bean>
+</beans>

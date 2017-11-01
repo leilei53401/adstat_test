@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="EntryPointsManager">
+    <entry_points version="2.0" />
+  </component>
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/../hadoop-2.7.3-src/hadoop-common-project/hadoop-auth-examples" />
+    <file type="web" url="file://$PROJECT_DIR$/../hadoop-2.7.3-src/hadoop-common-project/hadoop-kms" />
+    <file type="web" url="file://$PROJECT_DIR$/../hadoop-2.7.3-src/hadoop-hdfs-project/hadoop-hdfs-httpfs" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/../hadoop-2.7.3-src/pom.xml" />
+      </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/../hadoop-2.7.3-src/hadoop-assemblies/pom.xml" />
+        <option value="$PROJECT_DIR$/../hadoop-2.7.3-src/hadoop-build-tools/pom.xml" />
+        <option value="$PROJECT_DIR$/../hadoop-2.7.3-src/hadoop-client/pom.xml" />
+        <option value="$PROJECT_DIR$/../hadoop-2.7.3-src/hadoop-common-project/pom.xml" />
+        <option value="$PROJECT_DIR$/../hadoop-2.7.3-src/hadoop-dist/pom.xml" />
+        <option value="$PROJECT_DIR$/../hadoop-2.7.3-src/hadoop-hdfs-project/pom.xml" />
+        <option value="$PROJECT_DIR$/../hadoop-2.7.3-src/hadoop-mapreduce-project/pom.xml" />
+        <option value="$PROJECT_DIR$/../hadoop-2.7.3-src/hadoop-maven-plugins/pom.xml" />
+        <option value="$PROJECT_DIR$/../hadoop-2.7.3-src/hadoop-minicluster/pom.xml" />
+        <option value="$PROJECT_DIR$/../hadoop-2.7.3-src/hadoop-project-dist/pom.xml" />
+        <option value="$PROJECT_DIR$/../hadoop-2.7.3-src/hadoop-project/pom.xml" />
+        <option value="$PROJECT_DIR$/../hadoop-2.7.3-src/hadoop-tools/pom.xml" />
+        <option value="$PROJECT_DIR$/../hadoop-2.7.3-src/hadoop-yarn-project/pom.xml" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/classes" />
+  </component>
+</project>

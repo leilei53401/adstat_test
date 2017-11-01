@@ -1,0 +1,29 @@
+#property online
+applicationContext.properties
+	uploadSizeOff=0
+	hiveuploadsize=102400000
+	hdfsAddr=hdfs://60.29.252.10:8082
+db.properties
+	hive.linkurl=jdbc:hive2://60.29.252.4:10000/default
+ProcessFileService.java
+	annotation playlog access test environment
+
+2015-12-18
+1)修改db.properties
+2)修改memcache.properties
+3)applicationConfig.properties
+
+2015-12-22
+1)修改log4j.properties
+2)修改上传逻辑，防止上传到hive的tmp成功,但是load数据时候失败
+
+2016-01-04
+1)数据分析任务dataAnalyzeService，只能有一台机器运行
+
+2016-01-28
+1)backup建立两个目录 filterFileService processFileService
+2)修改filterFile.sh需要上传到服务器
+3)修改processFileService
+
+2016-02-02
+1)修改过滤脚本为java代码版，发现过滤有问题
